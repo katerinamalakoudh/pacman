@@ -65,8 +65,8 @@
 
             //this.load.image('dot', 'assets/dot.png');
             this.load.image('dot', 'assets/zari.png');
-            //this.load.image('tiles', 'assets/pacman-tiles.png');
-            this.load.image('tiles', 'assets/pacman-tiles - Copy.png');            
+            this.load.image('tiles1', 'assets/pacman-tiles.png');
+            this.load.image('tiles2', 'assets/pacman-tiles - Copy.png');            
             //this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.spritesheet('pacman', 'assets/pacman - Copy.png', 32, 32);
             //this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
@@ -79,7 +79,8 @@
         create: function () {
 
             this.map = this.add.tilemap('map');
-            this.map.addTilesetImage('pacman-tiles', 'tiles');
+            this.map.addTilesetImage('pacman-tiles', 'tiles1');
+            this.map.addTilesetImage('pacman-tiles', 'tiles2');
 
             this.layer = this.map.createLayer('Pacman');
 
