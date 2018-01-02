@@ -103,6 +103,8 @@
             this.pacman.anchor.set(0.5);
             this.pacman.animations.add('munch', [0, 1, 2, 1], 20, true);
 
+            dotaudio = game.add.audio('dotaudio');
+            
             this.physics.arcade.enable(this.pacman);
             this.pacman.body.setSize(16, 16, 0, 0);
 
@@ -230,7 +232,7 @@
         eatDot: function (pacman, dot) {
 
             dot.kill();
-
+            dotaudio.play();
             if (this.dots.total === 0)
             {
                 this.dots.callAll('revive');
