@@ -22,7 +22,7 @@
         
     var game = new Phaser.Game(448, 496, Phaser.AUTO);
 	
-    var karpouziCount =0;
+    var karpouziCount = 0;
 	
 
     var Pacman = function (game) {
@@ -267,19 +267,20 @@
 
         },
 
-		eatkarpouzi: function (pacman,karpouzi)
+	eatkarpouzi: function (pacman,karpouzi)
+	{
+		karpouzi.kill();
+		karpouziaudio.play();
+		karpouziCount++;
+		if (karpouziCount==3)
 		{
-			karpouzi.kill();
-			karpouziaudio.play();
-			karpouziCount++;
-			if(karpouziCount==3)
-			{
-				this.zwes++;
-				karpouziCount=-1;
-			}
-			if(this.karpouzia.total==0)
-				this.karpouzia.callAll('revive');
+			this.zwes++;
+			karpouziCount=-1;
 		}
+		if(this.karpouzia.total==0)			
+			this.karpouzia.callAll('revive');
+
+	},
 		
 		
         update: function () {
