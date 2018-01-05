@@ -103,7 +103,7 @@
 			this.karpouzia = this.add.physicsGroup();
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
-			this.map.createFromTiles(35, this.safetile, 'karpouzi', this.layer, this.karpouzia);
+	    this.map.createFromTiles(35, this.safetile, 'karpouzi', this.layer, this.karpouzia);
 			
 			
             //  The dots will need to be offset by 6px to put them back in the middle of the grid
@@ -111,15 +111,16 @@
             this.dots.setAll('y', 6, false, false, 1);
 
 			
-			this.karpouzia.setAll('x', 0, false, false, 1);
+	    this.karpouzia.setAll('x', 0, false, false, 1);
             this.karpouzia.setAll('y', 0, false, false, 1);
 			
             //  Pacman should collide with everything except the safe tile
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
 			
-			this.ctrlscore = game.add.text(360,172,"Score:"+this.score, {fontSize: "5px", fill: "#49311c"} );
-			this.ctrlzwes = game.add.text(0,172,"Lifes"+this.lifes,{fontSize: "5px" ,fill: "#00ff00"});
+	   this.ctrlzwes = game.add.text(0,172,"Lifes"+this.lifes,{fontSize: "3px" ,fill: "#00ff00"});
+           this.ctrlscore = game.add.text(0,360,"Score:"+this.score, {fontSize: "3px", fill: "#49311c"} );
+	
 			
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
             this.pacman = this.add.sprite((14 * 16) + 8, (17 * 16) + 8, 'pacman', 0);
