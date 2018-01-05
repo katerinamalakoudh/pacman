@@ -10,7 +10,7 @@
             background-color: #000;
         }
     </style>
-   //<script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+   <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
 </head>
 <body>
   
@@ -118,7 +118,14 @@
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
 			
-	   this.ctrlzwes = game.add.text(0,170,"Lifes"+this.lifes,{fontSize: "Calibri" ,fill: "#9C2542"});//#00ff00
+	var style01 = { font: "16px Arial", fill: "#fff", 
+        align: "left", // the alignment of the text is independent of the bounds, try changing to 'center' or 'right'
+        boundsAlignH: "left", 
+        boundsAlignV: "top", 
+        wordWrap: true, wordWrapWidth: 300 };		
+		
+		
+	   this.ctrlzwes = game.add.text(0,170,"Lifes:"+this.lifes,style01);//#00ff00
            this.ctrlscore = game.add.text(0,270,"Score:"+this.score, {fontSize: "5px", fill: "#6C3082"} );//#49311c
 	
 			
