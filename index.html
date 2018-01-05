@@ -22,14 +22,14 @@
         
     var game = new Phaser.Game(448, 496, Phaser.AUTO);
 	
-	var karpouziCount =0;
+    var karpouziCount =0;
 	
 
     var Pacman = function (game) {
 
-		this.zwes = 3;
-		this.score = 0;
-		this.ctrlscore = null;
+	this.zwes = 3;
+	this.score = 0;
+	this.ctrlscore = null;
 	
 	
         this.map = null;
@@ -77,10 +77,10 @@
 
             //audio
             this.load.audio('dotaudio', 'assets/LegoDot.mp3');
-            this.load.audio('eatkarpouziaudio', 'assets/pacman_eatfruit.wav');
+           // this.load.audio('eatkarpouziaudio', 'assets/pacman_eatfruit.wav');
             
             this.load.image('dot', 'assets/dot.png');
-			this.load.image('karpouzi', 'assets/karpouzi.png');
+	    this.load.image('karpouzi', 'assets/karpouzi.png');
            
             this.load.image('tiles', 'assets/pacman-tiles-new.png');                        
             this.load.spritesheet('pacman', 'assets/pacman - Copy.png', 32, 32);
