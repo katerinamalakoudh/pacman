@@ -21,9 +21,17 @@
       
         
     var game = new Phaser.Game(448, 496, Phaser.AUTO);
+	
+	var karpouziCount =0;
+	
 
     var Pacman = function (game) {
 
+		this.zwes = 3;
+		this.score = 0;
+		this.ctrlscore = null;
+	
+	
         this.map = null;
         this.layer = null;
         this.pacman = null;
@@ -69,12 +77,12 @@
 
             //audio
             this.load.audio('dotaudio', 'assets/LegoDot.mp3');
-            
+            this.load.audio('eatkarpouziaudio', 'assets/pacman_eatfruit.wav');
             
             this.load.image('dot', 'assets/dot.png');
+			this.load.image('karpouzi', 'assets/karpouzi.png');
            
-            this.load.image('tiles', 'assets/pacman-tiles-new.png');            
-            //this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
+            this.load.image('tiles', 'assets/pacman-tiles-new.png');                        
             this.load.spritesheet('pacman', 'assets/pacman - Copy.png', 32, 32);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
             
@@ -92,23 +100,35 @@
             this.layer = this.map.createLayer('Pacman');
 
             this.dots = this.add.physicsGroup();
+			this.karpouzia = this.add.physicsGroup();
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
-
+			this.map.createFromTiles(35, this.safetile, 'karpouzi', this.layer, this.karpouzia);
+			
+			
             //  The dots will need to be offset by 6px to put them back in the middle of the grid
             this.dots.setAll('x', 6, false, false, 1);
             this.dots.setAll('y', 6, false, false, 1);
 
+			
+			this.karpouzia.setAll('x', 0, false, false, 1);
+            this.karpouzia.setAll('y', 0, false, false, 1);
+			
             //  Pacman should collide with everything except the safe tile
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
+			
+			this.ctrlscore = game.add.text(360,172,"Score:"+this.score, {fontSize: "5px", fill: "#49311c"} );
+			this.ctrlzwes = game.add.text(0,172,"Lifes"+this.lifes,{fontSize: "5px" ,fill: "#00ff00"});
+			
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
             this.pacman = this.add.sprite((14 * 16) + 8, (17 * 16) + 8, 'pacman', 0);
             this.pacman.anchor.set(0.5);
             this.pacman.animations.add('munch', [0, 1, 2, 1], 20, true);
 
             dotaudio = game.add.audio('dotaudio');
-            
+            karpouziaudio = game.add.audio('eatkarpouziaudio');
+			
             this.physics.arcade.enable(this.pacman);
             this.pacman.body.setSize(16, 16, 0, 0);
 
@@ -233,9 +253,12 @@
 
         },
 
-        eatDot: function (pacman, dot) {
-
+        eatDot: function (pacman, dot) 
+		{
             dot.kill();
+			
+			this.score++;
+			
             dotaudio.play();
             if (this.dots.total === 0)
             {
@@ -244,14 +267,35 @@
 
         },
 
+		eatkarpouzi: function (pacman,karpouzi)
+		{
+			karpouzi.kill();
+			karpouziaudio.play();
+			karpouziCount++;
+			if(karpouziCount==3)
+			{
+				this.zwes++;
+				karpouziCount=-1;
+			}
+			if(this.karpouzia.total==0)
+				this.karpouzia.callAll('revive');
+		}
+		
+		
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
+			this.physics.arcade.overlap(this.pacman, this.karpouzia, this.eatkarpouzi, null, this);
+			
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
 
+			this.ctrlscore.text = "Score:"+this.score;
+			this.ctrlzwes.text="Lifes:"+this.zwes;
+			
+			
             //  Update our grid sensors
             this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
             this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
