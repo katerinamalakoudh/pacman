@@ -118,8 +118,8 @@
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
 			
-	   this.ctrlzwes = game.add.text(0,170,"Lifes"+this.lifes,{fontSize: "3px" ,fill: "#9C2542"});//#00ff00
-           this.ctrlscore = game.add.text(0,270,"Score:"+this.score, {fontSize: "3px", fill: "#6C3082"} );//#49311c
+	   this.ctrlzwes = game.add.text(0,170,"Lifes"+this.lifes,{fontSize: "32px Arial" ,fill: "#9C2542"});//#00ff00
+           this.ctrlscore = game.add.text(0,270,"Score:"+this.score, {fontSize: "5px", fill: "#6C3082"} );//#49311c
 	
 			
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
@@ -294,8 +294,8 @@
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
 
-			this.ctrlscore.text = "Score:"+this.score;
-			this.ctrlzwes.text="Lifes:"+this.zwes;
+	this.ctrlscore.text = "Score:"+this.score;
+	this.ctrlzwes.text="Lifes:"+this.zwes;
 			
 			
             //  Update our grid sensors
